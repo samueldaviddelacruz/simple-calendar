@@ -1,0 +1,9 @@
+.light-gray {
+    background-color: lightgray;
+}
+.light-gray .weekendDay {
+    color: #0839f3;
+}
+.calendarDay {
+    border:1px #827b7b solid;
+}

@@ -1,0 +1,25 @@
+.container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+.calendar {
+  margin-top: 10%;
+  display: grid;
+  width: 50%;
+  border:1px #827b7b solid;
+  grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% auto;
+  grid-template-rows: auto auto 10vh 10vh 10vh 10vh 10vh;
+  grid-template-areas:
+    "HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth"
+    "HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay"
+    "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay"
+    "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay"
+    "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay"
+    "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay"
+    "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay";
+}
