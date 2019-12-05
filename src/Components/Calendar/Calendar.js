@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  startOfMonth,
   endOfMonth,
   eachDayOfInterval,
   formatISO,
@@ -11,16 +10,26 @@ import {
   isWeekend,
   isSameMonth
 } from "date-fns";
-import "./Days.css";
+import "./Calendar.css";
 const TOTAL_DAYS_IN_CALENDAR = 35
-const Days = (props) => {
-  const startMonthDate = startOfMonth(Date.now());
+const getCalendarDaysInterval = (startMonthDate) => {
   const endMonthDate = endOfMonth(Date.now());
-
   const daysInInterval = eachDayOfInterval({
     start: addDays(startMonthDate,getDay(startMonthDate)),
     end: addDays(endMonthDate, TOTAL_DAYS_IN_CALENDAR - getDaysInMonth(startMonthDate))
   });
+
+  return daysInInterval
+}
+const Calendar = ({
+  startMonthDate,
+  reminders,
+  onReminderAdded,
+  onReminderRemoved,
+  onReminderUpdated
+}) => {
+ 
+  const daysInInterval = getCalendarDaysInterval(startMonthDate)
   return daysInInterval.map((dayDate, indx) => {
     const isWeekendDay = isWeekend(dayDate)
     const isOnSameMonth = isSameMonth(startMonthDate,dayDate)
@@ -32,11 +41,19 @@ const Days = (props) => {
     }
 
     return (
-      <div key={formatISO(dayDate)} className={dayContainerClasses.join(" ")}>
+      <div key={formatISO(dayDate)} className={dayContainerClasses.join(" ")} onClick={() =>{
+        const newReminder = {
+          text:"hey",
+          date:dayDate,
+          color:'blue',
+          city:'NY'
+        }
+        onReminderAdded(newReminder)
+      }}>
         <b className={dayNumberClass}>{lightFormat(dayDate,"d")}</b>
       </div>
     );
   });
 };
 
-export default Days
+export default Calendar
