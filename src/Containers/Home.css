@@ -15,7 +15,7 @@
   grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% auto;
   grid-template-rows: auto auto 10vh 10vh 10vh 10vh 10vh;
   grid-template-areas:
-    "HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth"
+    "AddReminderButton HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth"
     "HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay"
     "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay"
     "calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay calendarDay"

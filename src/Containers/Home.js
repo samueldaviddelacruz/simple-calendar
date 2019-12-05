@@ -1,28 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import Calendar from "../Components/Calendar/Calendar";
 import Header from "../Components/Header/Header";
+import AddReminderForm from "./Forms/AddReminder/AddReminder";
 import { format } from "date-fns";
 import { connect } from "react-redux";
 import * as actions from "../store/actions/index";
-import {
-  startOfMonth,
+import { startOfMonth } from "date-fns";
 
-} from "date-fns";
 const Home = props => {
-  console.log(props);
+  const [showAddReminderModal, setShowAddReminderModal] = useState(false);
   const startMonthDate = startOfMonth(Date.now());
-
+  console.log(props)
   return (
     <div className="container">
       <div className="calendar">
-        <Header monthStr={format(Date.now(), "MMMM")}></Header>
+        <AddReminderForm
+          showForm={showAddReminderModal}
+          hideForm={() => {
+            setShowAddReminderModal(false);
+          }}
+          onFormSubmit={props.onReminderAdded}
+        ></AddReminderForm>
+        <Header
+          monthStr={format(Date.now(), "MMMM")}
+          showAddReminderModal={() => {
+            setShowAddReminderModal(true);
+          }}
+        ></Header>
 
         {
           <Calendar
             startMonthDate={startMonthDate}
             reminders={props.reminders}
-            onReminderAdded={props.onReminderAdded}
             onReminderRemoved={props.onReminderRemoved}
             onReminderUpdated={props.onReminderUpdated}
           ></Calendar>
@@ -39,7 +49,10 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onReminderAdded: reminder => dispatch( actions.addReminder(reminder)  ),
+    onReminderAdded: reminder => {
+      console.log("ok?",reminder)
+      dispatch(actions.addReminder(reminder)    )
+    },
     onReminderRemoved: reminderId =>
       dispatch(actions.removeReminder(reminderId)),
     onReminderUpdated: (reminderId, newReminder) =>

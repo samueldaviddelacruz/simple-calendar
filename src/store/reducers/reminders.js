@@ -8,9 +8,7 @@ const addReminder = (state, action) => {
   const newReminder = { ...action.reminder };
   const foundReminder = state.reminders.find(r => r.id === newReminder.id);
   if (!foundReminder) {
-    const newState = JSON.parse(
-      JSON.stringify({ ...state, reminders: [...state.reminders, newReminder] })
-    );
+    const newState = { ...state, reminders: [...state.reminders, newReminder] }
     return newState;
   }
   return state;
@@ -22,16 +20,17 @@ const removeReminder = (state, action) => {
 };
 
 const updateReminder = (state, action) => {
-  const foundReminder = state.reminders.find(r => r.id === action.reminderId);
-  if (foundReminder) {
+  const reminderIndex = state.reminders.findIndex(
+    r => r.id === action.reminderId
+  );
+  if (reminderIndex > -1) {
+    const foundReminder = state.reminder[reminderIndex]
     const updatedReminder = { ...foundReminder, ...action.reminder };
-    const newReminders = state.reminders.filter(
-      r => r.id !== foundReminder.reminderId
-    );
-    const newState = JSON.parse(
-      JSON.stringify({ ...state, reminders: [...newReminders, updatedReminder] })
-    );
-    return newState;
+   
+    let newReminders = [...state.reminders]
+    newReminders[reminderIndex] = updatedReminder
+    const newState = { ...state, reminders: newReminders }
+    return newState
   }
   return state;
 };

@@ -24,9 +24,7 @@ const getCalendarDaysInterval = (startMonthDate) => {
 const Calendar = ({
   startMonthDate,
   reminders,
-  onReminderAdded,
-  onReminderRemoved,
-  onReminderUpdated
+
 }) => {
  
   const daysInInterval = getCalendarDaysInterval(startMonthDate)
@@ -41,15 +39,7 @@ const Calendar = ({
     }
 
     return (
-      <div key={formatISO(dayDate)} className={dayContainerClasses.join(" ")} onClick={() =>{
-        const newReminder = {
-          text:"hey",
-          date:dayDate,
-          color:'blue',
-          city:'NY'
-        }
-        onReminderAdded(newReminder)
-      }}>
+      <div key={formatISO(dayDate)} className={dayContainerClasses.join(" ")}>
         <b className={dayNumberClass}>{lightFormat(dayDate,"d")}</b>
       </div>
     );

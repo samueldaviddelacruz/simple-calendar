@@ -1,8 +1,12 @@
 import React from "react";
 import "./Header.css";
-const Header = ({monthStr}) => {
+import { Button } from 'antd';
+const Header = ({monthStr,showAddReminderModal}) => {
   return (
     <>
+
+     <Button className="AddReminderButton" type="primary" shape="circle" icon="plus"  onClick={showAddReminderModal}/>
+
      <div className="HeaderMonth"><h1>{monthStr}</h1></div>
       <div className="HeaderDay">
         <b> Sunday </b>
