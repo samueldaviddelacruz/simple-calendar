@@ -8,7 +8,8 @@ import {
   getDaysInMonth,
   lightFormat,
   isWeekend,
-  isSameMonth
+  isSameMonth,
+  isBefore
 } from "date-fns";
 import "./Calendar.css";
 
@@ -31,8 +32,13 @@ const Calendar = ({ startMonthDate, reminders }) => {
   console.log(reminders);
   const daysInInterval = getCalendarDaysInterval(startMonthDate);
   return daysInInterval.map((dayDate, indx) => {
-    const currentDayReminders =
-      reminders[lightFormat(dayDate, "yyyy-MM-dd")] || [];
+    const currentDayReminders = (
+      reminders[lightFormat(dayDate, "yyyy-MM-dd")] || [] ).sort( (reminderA,reminderB)  => {
+        if(isBefore(reminderA,reminderB)) {
+          return 1
+        } 
+        return -1;
+      } ) ;
     const isWeekendDay = isWeekend(dayDate);
     const isOnSameMonth = isSameMonth(startMonthDate, dayDate);
     let dayContainerClasses = ["calendarDay"];
