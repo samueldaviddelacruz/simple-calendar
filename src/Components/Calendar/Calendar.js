@@ -11,39 +11,59 @@ import {
   isSameMonth
 } from "date-fns";
 import "./Calendar.css";
-const TOTAL_DAYS_IN_CALENDAR = 35
-const getCalendarDaysInterval = (startMonthDate) => {
+
+
+
+const TOTAL_DAYS_IN_CALENDAR = 35;
+const getCalendarDaysInterval = startMonthDate => {
   const endMonthDate = endOfMonth(Date.now());
   const daysInInterval = eachDayOfInterval({
-    start: addDays(startMonthDate,getDay(startMonthDate)),
-    end: addDays(endMonthDate, TOTAL_DAYS_IN_CALENDAR - getDaysInMonth(startMonthDate))
+    start: addDays(startMonthDate, getDay(startMonthDate)),
+    end: addDays(
+      endMonthDate,
+      TOTAL_DAYS_IN_CALENDAR - getDaysInMonth(startMonthDate)
+    )
   });
 
-  return daysInInterval
-}
-const Calendar = ({
-  startMonthDate,
-  reminders,
-
-}) => {
- 
-  const daysInInterval = getCalendarDaysInterval(startMonthDate)
+  return daysInInterval;
+};
+const Calendar = ({ startMonthDate, reminders }) => {
+  console.log(reminders);
+  const daysInInterval = getCalendarDaysInterval(startMonthDate);
   return daysInInterval.map((dayDate, indx) => {
-    const isWeekendDay = isWeekend(dayDate)
-    const isOnSameMonth = isSameMonth(startMonthDate,dayDate)
-    let dayContainerClasses = ["calendarDay"]
-    let dayNumberClass = isWeekendDay && isOnSameMonth? "weekendDay" :"" 
-    
-    if(isWeekendDay || !isOnSameMonth) {
-        dayContainerClasses.push("light-gray")
+    const currentDayReminders =
+      reminders[lightFormat(dayDate, "yyyy-MM-dd")] || [];
+    const isWeekendDay = isWeekend(dayDate);
+    const isOnSameMonth = isSameMonth(startMonthDate, dayDate);
+    let dayContainerClasses = ["calendarDay"];
+    let dayNumberClass = isWeekendDay && isOnSameMonth ? "weekendDay" : "";
+
+    if (isWeekendDay || !isOnSameMonth) {
+      dayContainerClasses.push("light-gray");
     }
 
     return (
       <div key={formatISO(dayDate)} className={dayContainerClasses.join(" ")}>
-        <b className={dayNumberClass}>{lightFormat(dayDate,"d")}</b>
+        <b className={dayNumberClass}>{lightFormat(dayDate, "d")}</b>
+
+        {currentDayReminders.map(r => {
+          const time = lightFormat(r.date, "H:MM aaaa")
+          return (
+            <div key={r.id} className={"reminder"}>
+              <p
+                style={{
+                  color: r.color,
+                }}
+              >
+                {`[${time}]${r.text}`}
+              </p>
+           
+            </div>
+          );
+        })}
       </div>
     );
   });
 };
 
-export default Calendar
+export default Calendar;

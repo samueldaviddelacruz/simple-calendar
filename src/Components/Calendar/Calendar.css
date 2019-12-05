@@ -6,4 +6,20 @@
 }
 .calendarDay {
     border:1px #827b7b solid;
+    min-height: 10vh;
+    word-wrap: break-word;
 }
+
+.reminder{
+    display: flex;
+    flex-flow: column;
+}
+.reminder p {
+    overflow-wrap: break-word;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.reminder p:hover {
+   color:#08b2f3 !important
+}
+

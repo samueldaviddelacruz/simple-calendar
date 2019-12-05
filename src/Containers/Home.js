@@ -11,7 +11,7 @@ import { startOfMonth } from "date-fns";
 const Home = props => {
   const [showAddReminderModal, setShowAddReminderModal] = useState(false);
   const startMonthDate = startOfMonth(Date.now());
-  console.log(props)
+  
   return (
     <div className="container">
       <div className="calendar">

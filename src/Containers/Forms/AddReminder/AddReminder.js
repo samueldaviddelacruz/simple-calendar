@@ -66,7 +66,8 @@ const AddReminder = props => {
           {getFieldDecorator("color", {
             rules: [
               { required: true, message: "Please select a color!" }
-            ]
+            ],
+            initialValue:"#000000"
           })(<Input type="color" placeholder="Buy groceries..."  style={{ width: 120 }}/>)}
         </Form.Item>
       </Form>

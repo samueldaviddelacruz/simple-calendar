@@ -13,7 +13,7 @@
   width: 50%;
   border:1px #827b7b solid;
   grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% auto;
-  grid-template-rows: auto auto 10vh 10vh 10vh 10vh 10vh;
+  grid-template-rows: auto;
   grid-template-areas:
     "AddReminderButton HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth HeaderMonth"
     "HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay HeaderDay"

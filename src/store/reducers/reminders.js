@@ -1,17 +1,22 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  reminders: []
+  reminders: {}
 };
 
 const addReminder = (state, action) => {
   const newReminder = { ...action.reminder };
-  const foundReminder = state.reminders.find(r => r.id === newReminder.id);
-  if (!foundReminder) {
-    const newState = { ...state, reminders: [...state.reminders, newReminder] }
-    return newState;
-  }
-  return state;
+  let newReminders = [...( state.reminders[newReminder.reminderDayId] || [])];
+  newReminders.push(newReminder);
+  const newState = {
+    ...state,
+    reminders: {
+      ...state.reminders,
+      [newReminder.reminderDayId]: newReminders
+    }
+  };
+
+  return newState;
 };
 
 const removeReminder = (state, action) => {
@@ -24,23 +29,27 @@ const updateReminder = (state, action) => {
     r => r.id === action.reminderId
   );
   if (reminderIndex > -1) {
-    const foundReminder = state.reminder[reminderIndex]
+    const foundReminder = state.reminder[reminderIndex];
     const updatedReminder = { ...foundReminder, ...action.reminder };
-   
-    let newReminders = [...state.reminders]
-    newReminders[reminderIndex] = updatedReminder
-    const newState = { ...state, reminders: newReminders }
-    return newState
+
+    let newReminders = [...state.reminders];
+    newReminders[reminderIndex] = updatedReminder;
+    const newState = { ...state, reminders: newReminders };
+    return newState;
   }
   return state;
 };
 
-const reducer = ( state = initialState, action ) => {
-  switch ( action.type ) {
-      case actionTypes.ADD_REMINDER: return addReminder( state, action );
-      case actionTypes.REMOVE_REMINDER: return removeReminder(state, action);
-      case actionTypes.UPDATE_REMINDER: return updateReminder(state, action);    
-      default: return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_REMINDER:
+      return addReminder(state, action);
+    case actionTypes.REMOVE_REMINDER:
+      return removeReminder(state, action);
+    case actionTypes.UPDATE_REMINDER:
+      return updateReminder(state, action);
+    default:
+      return state;
   }
 };
 
