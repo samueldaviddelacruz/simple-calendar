@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Home.css";
-import Calendar from "../Components/Calendar/Calendar";
+import Calendar from "./Calendar/Calendar";
 import Header from "../Components/Header/Header";
 import AddReminderForm from "./Forms/AddReminder/AddReminder";
 import { format } from "date-fns";
