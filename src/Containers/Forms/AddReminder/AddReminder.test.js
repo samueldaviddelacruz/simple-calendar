@@ -22,6 +22,7 @@ function setup() {
 
 describe("AddReminderForm", () => {
   describe("Modal", () => {
+    
     it("should render self and subcomponents", () => {
       const wrapper = mount(<AddReminderForm showForm={true} />);
       const formModalProps = wrapper.find("Modal").props();
