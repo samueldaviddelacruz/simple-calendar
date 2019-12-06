@@ -40,9 +40,6 @@ describe("AddReminderForm", () => {
       getFieldDecorator("city", {
         initialValue: "NY"
       });
-      getFieldDecorator("text", {
-        initialValue: "Buy Groceries"
-      });
       getFieldDecorator("color", {
         initialValue: "#000000"
       });
