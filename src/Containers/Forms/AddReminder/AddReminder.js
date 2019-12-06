@@ -6,7 +6,7 @@ const { Option } = Select;
 const AddReminder = props => {
   
   const handleSubmit = e => {
-    e.preventDefault();
+   
     props.form.validateFields((err, values) => {
       if (!err) {
         
