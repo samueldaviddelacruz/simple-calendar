@@ -25,12 +25,15 @@ export const removeReminder = reminderId => {
   };
 };
 
-export const updateReminder = (reminderId, newReminder) => {
+export const updateReminder = (newReminder) => {
+  const newDayReminderDayId = lightFormat(newReminder.date, 'yyyy-MM-dd')
+  const id = formatISO(newReminder.date);
   return {
     type: actionTypes.UPDATE_REMINDER,
-    reminderId,
+    newDayReminderDayId,
+    newReminderId:id,
     reminder: {
-      ...newReminder
+      ...newReminder,
     }
   };
 };

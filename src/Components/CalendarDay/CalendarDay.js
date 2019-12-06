@@ -6,17 +6,22 @@ import {
   isSameMonth,
   isBefore
 } from "date-fns";
-import './CalendarDay.css'
+import "./CalendarDay.css";
 const getSortedCurrentDayReminders = (reminders, dayDate) => {
+  const reminderDayId = lightFormat(dayDate, "yyyy-MM-dd")
+  const remindersArr = Object.keys(
+    (reminders[reminderDayId] || {})
+  ).map(key => reminders[reminderDayId][key]);
+    
   const currentDayReminders = (
-    reminders[lightFormat(dayDate, "yyyy-MM-dd")] || []
+    remindersArr
   ).sort((reminderA, reminderB) => {
-    if (isBefore(reminderA, reminderB)) {
-      return 1;
+    if (isBefore(reminderA.date, reminderB.date)) {
+      return -1;
     }
-    return -1;
+    return 1;
   });
-
+ 
   return currentDayReminders;
 };
 const getContainersClasses = (startMonthDate, dayDate) => {
@@ -34,7 +39,12 @@ const getContainersClasses = (startMonthDate, dayDate) => {
     dayNumberClass
   };
 };
-const CalendarDay = ({ reminders, startMonthDate, dayDate }) => {
+const CalendarDay = ({
+  reminders,
+  startMonthDate,
+  dayDate,
+  onReminderSelected
+}) => {
   const currentDayReminders = getSortedCurrentDayReminders(reminders, dayDate);
   const { dayContainerClasses, dayNumberClass } = getContainersClasses(
     startMonthDate,
@@ -45,15 +55,18 @@ const CalendarDay = ({ reminders, startMonthDate, dayDate }) => {
       <b className={dayNumberClass}>{lightFormat(dayDate, "d")}</b>
 
       {currentDayReminders.map(r => {
-        const time = lightFormat(r.date, "H:MM aaaa");
+        const time = lightFormat(r.date, "H:mm aaaa");
         const reminderText = `[${time}]
-        
+
                               ${r.text}`;
         return (
           <div key={r.id} className={"reminder"}>
             <p
               style={{
                 color: r.color
+              }}
+              onClick={() => {
+                onReminderSelected(r);
               }}
             >
               {reminderText}

@@ -1,28 +1,40 @@
 import React from "react";
-
+import * as moment from 'moment';
 import { Form, Select, Input, DatePicker, Modal } from "antd";
 const { Option } = Select;
 
 const UpdateReminder = props => {
-  const {text,city,date,color} = props;
+  
+  const {text,city,color,id,reminderDayId} = props.reminder;
+  const date = moment(props.reminder.date)
+  
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
     
-        const reminder = {...values,date:values.date.toDate()}
+        const reminder = {...values,date:values.date.toDate()  }
+
         props.onFormSubmit(reminder)
         props.hideForm()
         props.form.resetFields()
       }
     });
   };
+
   const onAddReminderCancel = (e) => {
     props.hideForm()
   }
 
  
   const { getFieldDecorator } = props.form;
+ 
+  getFieldDecorator("id", {
+    initialValue: id
+  })
+  getFieldDecorator("reminderDayId", {
+    initialValue: reminderDayId
+  })
   return (
     <Modal
       title="Edit Reminder"

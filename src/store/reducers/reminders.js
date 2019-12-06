@@ -6,15 +6,7 @@ const initialState = {
 
 const addReminder = (state, action) => {
   const newReminder = { ...action.reminder };
-  let newReminders = [...( state.reminders[newReminder.reminderDayId] || [])];
-  newReminders.push(newReminder);
-  const newState = {
-    ...state,
-    reminders: {
-      ...state.reminders,
-      [newReminder.reminderDayId]: newReminders
-    }
-  };
+  const newState = addNewReminderToState(state, newReminder);
 
   return newState;
 };
@@ -25,18 +17,20 @@ const removeReminder = (state, action) => {
 };
 
 const updateReminder = (state, action) => {
-  const reminderIndex = state.reminders.findIndex(
-    r => r.id === action.reminderId
-  );
-  if (reminderIndex > -1) {
-    const foundReminder = state.reminder[reminderIndex];
-    const updatedReminder = { ...foundReminder, ...action.reminder };
+  const updatedReminder = { ...action.reminder };
+  let newState = { ...state };
+  delete newState.reminders[updatedReminder.reminderDayId][updatedReminder.id];
+  const reminders = { ...(newState.reminders[action.newDayReminderDayId] || {}) };
 
-    let newReminders = [...state.reminders];
-    newReminders[reminderIndex] = updatedReminder;
-    const newState = { ...state, reminders: newReminders };
-    return newState;
-  }
+  newState.reminders[action.newDayReminderDayId] = {
+    ...reminders,
+    [action.newReminderId]: {
+      ...updatedReminder,
+      id: action.newReminderId,
+      reminderDayId: action.newDayReminderDayId
+    }
+  };
+  
   return state;
 };
 
@@ -54,3 +48,12 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+function addNewReminderToState(state, newReminder) {
+  let reminders = { ...(state.reminders[newReminder.reminderDayId] || {}) };
+  let newState = { ...state };
+  newState.reminders[newReminder.reminderDayId] = {
+    ...reminders,
+    [newReminder.id]: { ...newReminder }
+  };
+  return newState;
+}
