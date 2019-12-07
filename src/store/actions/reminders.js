@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import { formatISO,lightFormat } from "date-fns";
-export const addReminder = ({ text, city, date, color }) => {
+export const addReminder = ({ text, city, date, color,weatherInfo }) => {
     
   const id = formatISO(date);
   const reminderDayId = lightFormat(date, 'yyyy-MM-dd')
@@ -13,7 +13,8 @@ export const addReminder = ({ text, city, date, color }) => {
       text,
       city,
       date,
-      color
+      color,
+      weatherInfo
     }
   };
 };

@@ -13,6 +13,7 @@
 .reminder{
     display: flex;
     flex-flow: column;
+    border-style: dashed;
 }
 .reminder p {
     overflow-wrap: break-word;

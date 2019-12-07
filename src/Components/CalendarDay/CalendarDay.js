@@ -1,4 +1,5 @@
 import React from "react";
+import WeatherIcon from '../UI/WeatherIcon/WeatherIcon'
 import {
   formatISO,
   lightFormat,
@@ -56,11 +57,10 @@ const CalendarDay = ({
 
       {currentDayReminders.map(r => {
         const time = lightFormat(r.date, "H:mm aaaa");
-        const reminderText = `[${time}]
-
-                              ${r.text}`;
+        const reminderText = `${r.text}`;
         return (
-          <div key={r.id} className={"reminder"}>
+          <div key={r.id} className={"reminder"} style={{borderColor:r.color}}>
+            <div style={{textAlign:"initial"}}> {time} <WeatherIcon {...r.weatherInfo} size={"small"}></WeatherIcon> </div>
             <p
               style={{
                 color: r.color
