@@ -1,6 +1,18 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import * as moment from "moment";
-import { Form, Select, Input, DatePicker, Modal } from "antd";
+import {
+  Form,
+  Select,
+  Input,
+  DatePicker,
+  Modal,
+  Button,
+  Popconfirm
+} from "antd";
+import {
+  isBefore,
+  subHours
+} from "date-fns";
 import useWeather from "../../../Hooks/useWeather";
 import WeatherIcon from "../../../Components/UI/WeatherIcon/WeatherIcon";
 
@@ -48,7 +60,11 @@ const UpdateReminder = props => {
     await searchWeather(value);
   };
   const onDateChange = async value => {
-    await searchWeather(selectedCityId);
+    await searchWeather( selectedCityId || props.reminder.city);
+  };
+  const onDeleteReminder = () => {
+    props.onReminderRemoved(id, reminderDayId);
+    props.hideForm();
   };
 
   getFieldDecorator("id", {
@@ -58,8 +74,8 @@ const UpdateReminder = props => {
     initialValue: reminderDayId
   });
   getFieldDecorator("weatherInfo", {
-    initialValue: (closestWeatherForecast || props.reminder.weatherInfo)
-  })
+    initialValue: closestWeatherForecast || props.reminder.weatherInfo
+  });
   return (
     <Modal
       title="Edit Reminder"
@@ -93,7 +109,9 @@ const UpdateReminder = props => {
             </Select>
           )}
           {props.reminder.weatherInfo && (
-            <WeatherIcon {...(closestWeatherForecast || props.reminder.weatherInfo)}></WeatherIcon>
+            <WeatherIcon
+              {...(closestWeatherForecast || props.reminder.weatherInfo)}
+            ></WeatherIcon>
           )}
         </Form.Item>
         <Form.Item label="Date and Time">
@@ -102,7 +120,17 @@ const UpdateReminder = props => {
               { required: true, message: "Please select a date and time" }
             ],
             initialValue: date
-          })(<DatePicker showTime placeholder="Select A Day and time" onChange={onDateChange} />)}
+          })(
+            <DatePicker
+              showTime
+              placeholder="Select A Day and time"
+              onChange={onDateChange}
+              disabledDate={(currentDate =>{
+                const nDate = currentDate.toDate()
+                return isBefore(nDate,subHours(Date.now(),1)  )
+              })}
+            />
+          )}
         </Form.Item>
         <Form.Item label="Color">
           {getFieldDecorator("color", {
@@ -116,6 +144,16 @@ const UpdateReminder = props => {
             />
           )}
         </Form.Item>
+        <div style={{ textAlign: "center" }}>
+          <Popconfirm
+            title="Are you sure you want to delete this reminder?"
+            onConfirm={onDeleteReminder}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button shape="circle" icon="delete" />
+          </Popconfirm>
+        </div>
       </Form>
     </Modal>
   );

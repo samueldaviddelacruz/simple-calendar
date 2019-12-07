@@ -24,20 +24,24 @@ const Home = props => {
             setShowAddReminderModal(false);
           }}
           onFormSubmit={props.onReminderAdded}
+          
         ></AddReminderForm>
-        
-        { selectedReminder && <UpdateReminderForm
-          showForm={showEditReminderModal}
-          hideForm={() => {
-            setShowEditReminderModal(false);
-          }}
-          onFormSubmit={(reminder) =>{
-            console.log("updated reminder",reminder)
-            props.onReminderUpdated(reminder)
-            setSelectedReminder(null)
-          }}
-          reminder={selectedReminder}
-        ></UpdateReminderForm>}
+
+        {selectedReminder && (
+          <UpdateReminderForm
+            showForm={showEditReminderModal}
+            hideForm={() => {
+              setShowEditReminderModal(false);
+            }}
+            onFormSubmit={reminder => {
+              console.log("updated reminder", reminder);
+              props.onReminderUpdated(reminder);
+              setSelectedReminder(null);
+            }}
+            reminder={selectedReminder}
+            onReminderRemoved={props.onReminderRemoved}
+          ></UpdateReminderForm>
+        )}
         <Header
           monthStr={format(Date.now(), "MMMM")}
           showAddReminderModal={() => {
@@ -49,8 +53,8 @@ const Home = props => {
           <Calendar
             startMonthDate={startMonthDate}
             reminders={props.reminders}
-            onReminderSelected={(reminder) => {
-              setSelectedReminder({...reminder})
+            onReminderSelected={reminder => {
+              setSelectedReminder({ ...reminder });
               setShowEditReminderModal(true);
             }}
           ></Calendar>
@@ -68,12 +72,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onReminderAdded: reminder => {
-      console.log("ok?", reminder);
+     
       dispatch(actions.addReminder(reminder));
     },
-    onReminderRemoved: reminderId =>
-      dispatch(actions.removeReminder(reminderId)),
-    onReminderUpdated: (newReminder) =>
+    onReminderRemoved: (id, reminderDayId) =>
+      dispatch(actions.removeReminder(id, reminderDayId)),
+    onReminderUpdated: newReminder =>
       dispatch(actions.updateReminder(newReminder))
   };
 };

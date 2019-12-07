@@ -15,13 +15,13 @@ export default () => {
     setIsLoadingWeather(false);
   };
   const findClosestWeather = (selectedDate) => {
-    if (selectedDate && weatherResults.length) {
+    if (selectedDate && weatherResults && weatherResults.length) {
       const weatherDates = weatherResults.map(w => new Date(w.dt * 1000));
       const closestDateIndex = closestIndexTo(
         selectedDate,
         weatherDates
       );
-      console.log(weatherResults[closestDateIndex].weather[0])
+      
       setClosestWeatherForecast(weatherResults[closestDateIndex].weather[0] );
     }
   };

@@ -12,8 +12,10 @@ const addReminder = (state, action) => {
 };
 
 const removeReminder = (state, action) => {
-  const newReminders = state.reminders.filter(r => r.id !== action.reminderId);
-  return { ...state, reminders: newReminders };
+  let newState = { ...state };
+  delete newState.reminders[action.reminderDayId][action.id];
+
+  return newState
 };
 
 const updateReminder = (state, action) => {

@@ -4,6 +4,10 @@ import { Form, Select, Input, DatePicker, Modal } from "antd";
 import WeatherIcon from "../../../Components/UI/WeatherIcon/WeatherIcon";
 
 import useWeather from "../../../Hooks/useWeather";
+import {
+  isBefore,
+  subHours
+} from "date-fns";
 const { Option } = Select;
 const INITIAL_CITY_ID = "3492908";
 
@@ -99,6 +103,10 @@ const AddReminder = props => {
               showTime
               placeholder="Select A Day and time"
               onChange={onDateChange}
+              disabledDate={(currentDate =>{
+                const nDate = currentDate.toDate()
+                return isBefore(nDate,subHours(Date.now(),1)  )
+              })}
             />
           )}
         </Form.Item>

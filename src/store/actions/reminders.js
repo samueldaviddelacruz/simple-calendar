@@ -19,10 +19,11 @@ export const addReminder = ({ text, city, date, color,weatherInfo }) => {
   };
 };
 
-export const removeReminder = reminderId => {
+export const removeReminder = (id,reminderDayId) => {
   return {
     type: actionTypes.REMOVE_REMINDER,
-    reminderId
+    id,
+    reminderDayId
   };
 };
 
