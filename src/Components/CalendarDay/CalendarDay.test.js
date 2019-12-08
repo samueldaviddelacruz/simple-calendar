@@ -1,8 +1,8 @@
 import React from "react";
-import Enzyme, { mount, shallow } from "enzyme";
+import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import CalendarDay from "./CalendarDay";
-import { formatISO, parse } from "date-fns";
+import {  parse } from "date-fns";
 
 Enzyme.configure({ adapter: new Adapter() });
 
