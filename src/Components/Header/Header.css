@@ -6,9 +6,9 @@
 }
 .HeaderMonth {
     grid-area: HeaderMonth;
-    
-    display: inline-grid;
+    display: flex;
     place-items: center;
+    justify-content: center;
     margin: 0;
 }
 
