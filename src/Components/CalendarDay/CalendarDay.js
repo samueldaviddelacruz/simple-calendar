@@ -46,11 +46,13 @@ const CalendarDay = ({
   dayDate,
   onReminderSelected
 }) => {
+  
   const currentDayReminders = getSortedCurrentDayReminders(reminders, dayDate);
   const { dayContainerClasses, dayNumberClass } = getContainersClasses(
     startMonthDate,
     dayDate
   );
+  
   return (
     <div key={formatISO(dayDate)} className={dayContainerClasses.join(" ")}>
       <b className={dayNumberClass}>{lightFormat(dayDate, "d")}</b>
@@ -60,11 +62,9 @@ const CalendarDay = ({
         const reminderText = `${r.text}`;
         return (
           <div key={r.id} className={"reminder"} style={{borderColor:r.color}}>
-            <div style={{textAlign:"initial"}}> {time} <WeatherIcon {...r.weatherInfo} size={"small"}></WeatherIcon> </div>
+            <div style={{textAlign:"initial",display:"flex"}}> {time} <WeatherIcon {...r.weatherInfo} size={"small"}></WeatherIcon> </div>
             <p
-              style={{
-                color: r.color
-              }}
+              style={{color:r.color}}
               onClick={() => {
                 onReminderSelected(r);
               }}

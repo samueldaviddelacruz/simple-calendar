@@ -1,26 +1,27 @@
 .light-gray {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 .light-gray .weekendDay {
-    color: #0839f3;
+  color: #0839f3;
 }
 .calendarDay {
-    border:1px #827b7b solid;
-    min-height: 10vh;
-    word-wrap: break-word;
+  border: 1px #827b7b solid;
+  height: 10vh;
+  word-wrap: break-word;
+  overflow-y: auto;
 }
 
-.reminder{
-    display: flex;
-    flex-flow: column;
-    border-style: dashed;
-    margin-bottom: 0.1rem;
+.reminder {
+  display: flex;
+  flex-flow: column;
+  border-style: dashed;
+  margin-bottom: 0.1rem;
 }
 .reminder p {
-    overflow-wrap: break-word;
-    margin-bottom: 0;
-    cursor: pointer;
+  overflow-wrap: break-word;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 .reminder p:hover {
-   color:#08b2f3 !important
+  color: #08b2f3 !important;
 }

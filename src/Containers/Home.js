@@ -34,7 +34,7 @@ const Home = props => {
               setShowEditReminderModal(false);
             }}
             onFormSubmit={reminder => {
-              console.log("updated reminder", reminder);
+             
               props.onReminderUpdated(reminder);
               setSelectedReminder(null);
             }}

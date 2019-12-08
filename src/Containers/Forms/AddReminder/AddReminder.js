@@ -20,7 +20,7 @@ const AddReminder = props => {
     resetWeatherForecast
   } = useWeather();
   const { getFieldDecorator, getFieldValue } = props.form;
-  console.log("isLoadingWeather", isLoadingWeather);
+  
 
   const date = getFieldValue("date");
   const selectedCityId = getFieldValue("city");
@@ -42,7 +42,7 @@ const AddReminder = props => {
     props.form.validateFields((err, values) => {
       if (!err) {
         const reminder = { ...values, date: values.date.toDate() };
-        console.log(reminder)
+      
         props.onFormSubmit(reminder);
         props.hideForm();
         props.form.resetFields();

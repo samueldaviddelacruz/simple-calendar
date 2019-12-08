@@ -24,7 +24,7 @@ const getCalendarDaysInterval = startMonthDate => {
 };
 
 const Calendar = ({ startMonthDate, reminders, onReminderSelected }) => {
-  console.log(reminders)
+  
   const daysInInterval = getCalendarDaysInterval(startMonthDate);
   return daysInInterval.map((dayDate, indx) => {
     return (
