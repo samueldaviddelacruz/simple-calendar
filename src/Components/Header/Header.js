@@ -1,14 +1,14 @@
 import React from "react";
 import "./Header.css";
 import { Button } from "antd";
-import { isBefore, format, isSameMonth, isSameYear } from "date-fns";
+import { format, isSameMonth, isSameYear } from "date-fns";
 const Header = ({
   date,
   showAddReminderModal,
   onMoveMonthForward,
   onMoveMonthBack
 }) => {
-  const monthStr = format(date, "MMMM");
+  const monthStr = format(date, "MMMM yyyy");
   const shouldRenderBackButton =
     isSameMonth(date, Date.now()) && isSameYear(date, Date.now());
   return (
